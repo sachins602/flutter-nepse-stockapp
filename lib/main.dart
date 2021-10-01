@@ -471,35 +471,59 @@ class _ScaffoldWidgetForIndividualCompanyDetailState
             label: Text('Search'),
             icon: Icon(Icons.search),
             style: OutlinedButton.styleFrom(
-                primary: Colors.green, side: BorderSide(color: Colors.blue)),
-            onPressed: () async {
-              final finalResult = await showSearch(
-                  context: context, delegate: NameSearch(names: names));
-              setState(() {
-                selectedPlace = finalResult!;
-              });
-              // url = 'http://10.0.2.2:5000/company/$selectedPlace';
+                primary: Colors.green,
+                side: BorderSide(color: Colors.blueGrey.shade900)),
+            onPressed: () {
+              Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                      builder: (context) =>
+                          SearchResultsContainer(suggestions: selectedPlace)));
             },
           ),
           if (selectedPlace == '')
             Container()
           else
             Container(
-              height: 250,
-              width: 320,
               padding: EdgeInsets.only(left: 50, top: 80),
-              child: RaisedButton(
+              child: OutlinedButton.icon(
 
-                color: Colors.blue,
-                child: Text("PRESS HERE FOR DETAILS OF " + selectedPlace),
-                onPressed: () {
-                  Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                          builder: (context) => SearchResultsContainer(
-                              suggestions: selectedPlace)));
+                label: Text(
+                  "PRESS HERE FOR DETAILS OF " + selectedPlace,
+                  style: TextStyle(
+                    color: Colors.white,
+                  ),
+                ),
+                icon: Icon(Icons.search),
+                style: OutlinedButton.styleFrom(
+                    primary: Colors.green,
+                    side: BorderSide(color: Colors.blueGrey.shade900)),
+                onPressed: () async {
+                  final finalResult = await showSearch(
+                      context: context, delegate: NameSearch(names: names));
+                  setState(() {
+                    selectedPlace = finalResult!;
+                  });
                 },
               ),
+
+              // ElevatedButton(
+              //   autofocus: true,
+              //   child: Container(
+              //     color: Color(0xFF162026),
+              //     child: Text("PRESS HERE FOR DETAILS OF " + selectedPlace,
+              //     style: TextStyle(
+              //       color: Colors.white,
+              //     ),),
+              //   ),
+              //   onPressed: () {
+              //     Navigator.push(
+              //         context,
+              //         MaterialPageRoute(
+              //             builder: (context) => SearchResultsContainer(
+              //                 suggestions: selectedPlace)));
+              //   },
+              // ),
             ),
 
           // Container(
