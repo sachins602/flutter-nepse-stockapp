@@ -15,15 +15,21 @@ class SearchResultsContainer extends StatefulWidget {
 }
 
 class _SearchResultsContainerState extends State<SearchResultsContainer> {
-  List<IndividualCompanyData> individualCompanyData = <IndividualCompanyData>[];
+
+  Map individualCompanyData = {};
+// var individualCompanyData;
+  //
   // List<IndividualCompanyData> individualCompanyData = new List<IndividualCompanyData>.empty(growable: true);
-  //
-  // //List<IndividualCompanyData> characterList = new List<IndividualCompanyData>.empty(growable: true);
-  //
-  Future<Null> getIndividualCompanyData() async {
-    // http.Response response;
-    final response = await http.get(Uri.parse('http://10.0.2.2:5000/company/${widget.suggestions}'));
-     individualCompanyData = IndividualCompanyData.fromJson(jsonDecode(response.body)) as List<IndividualCompanyData>;
+
+  Future getIndividualCompanyData() async {
+    http.Response response;
+    response = await http.get(Uri.parse('http://10.0.2.2:5000/company/${widget.suggestions}'));
+    if(response.statusCode == 200){
+      setState(() {
+        individualCompanyData = json.decode(response.body);
+      });
+    }
+
 
   }
 
@@ -40,8 +46,9 @@ class _SearchResultsContainerState extends State<SearchResultsContainer> {
 
     @override
     void initState() {
-      super.initState();
       getIndividualCompanyData();
+      super.initState();
+
 
     }
 
@@ -50,18 +57,17 @@ class _SearchResultsContainerState extends State<SearchResultsContainer> {
     @override
   Widget build(BuildContext context) {
 
+        return Scaffold(
 
-
-
-    return Scaffold(
-      body: Container(
-                width: 300,
-                height: 400,
-                padding: EdgeInsets.symmetric(horizontal: 35, vertical: 15),
-                color: Colors.deepOrange,
-        child: Text(widget.suggestions),
-      ),
-    );
+          body: individualCompanyData == null? Container() :
+          Container(
+            width: 300,
+            height: 400,
+            padding: EdgeInsets.symmetric(horizontal: 35, vertical: 15),
+            color: Colors.deepOrange,
+            child: Text(individualCompanyData['Sector'].toString()),
+          ),
+        );
   }
 }
 
