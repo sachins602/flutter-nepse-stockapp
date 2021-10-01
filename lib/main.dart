@@ -15,14 +15,15 @@ import 'package:jsonproject/search_company_details.dart';
 import 'package:jsonproject/topgainers_losers.dart';
 import 'package:jsonproject/ui/company_extradetails_page.dart';
 import 'package:jsonproject/ui/login_screen.dart';
+import 'package:jsonproject/widget/indiviual_comapny_detail.dart';
 import 'package:jsonproject/widget/navigation_drawer.dart';
 
-
-Future<void> main() async{
+Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
   runApp(LoginPageEntryPoint());
 }
+
 var indexClicked = 0;
 
 class LoginPageEntryPoint extends StatefulWidget {
@@ -39,7 +40,6 @@ class _LoginPageEntryPointState extends State<LoginPageEntryPoint> {
   @override
   Widget build(BuildContext context) {
     return GetMaterialApp(
-      title: 'SearchDelegate',
       debugShowCheckedModeBanner: false,
       //home: ScaffoldWidgetForHome(),
       //initialRoute: '/firstScreen',
@@ -49,22 +49,15 @@ class _LoginPageEntryPointState extends State<LoginPageEntryPoint> {
         '/thirdScreen': (context) => ScaffoldWidgetForSearch(),
         '/fourthScreen': (context) => ScaffoldWidgetForMarketData(),
         '/fifthScreen': (context) => ScaffoldWidgetForTopGainersLosers(),
-        '/sixthScreen': (context) => ScaffoldWidgetForIndividualCompanyDetail(title: 'SearchDelegate',),
+        '/sixthScreen': (context) => ScaffoldWidgetForIndividualCompanyDetail(),
 
         //'/sixthScreen': (context) => LoginPageEntryPoint(),
       },
 
-
       home: LoginScreen(),
-
-
-);
-
-
+    );
   }
 }
-
-
 
 // class MyApp extends StatefulWidget {
 //   const MyApp({Key? key}) : super(key: key);
@@ -266,8 +259,6 @@ class ScaffoldWidgetForSearch extends StatefulWidget {
 }
 
 class _ScaffoldWidgetForSearchState extends State<ScaffoldWidgetForSearch> {
-
-
   // static const routeName = '/secondScreen';
   int _currentIndex = 0;
   @override
@@ -276,9 +267,11 @@ class _ScaffoldWidgetForSearchState extends State<ScaffoldWidgetForSearch> {
       appBar: AppBar(
         backgroundColor: Color(0xFF262626),
         title: Text("Stock App"),
-        ),
+      ),
       drawer: DrawerWidget(),
-      body: CharacterList(index: _currentIndex,),
+      body: CharacterList(
+        index: _currentIndex,
+      ),
 //       bottomNavigationBar: BottomAppBar(
 //         child: BottomNavigationBar(
 //           type: BottomNavigationBarType.fixed,
@@ -422,6 +415,7 @@ class _ScaffoldWidgetForMarketDataState
     );
   }
 }
+
 class ScaffoldWidgetForTopGainersLosers extends StatefulWidget {
   const ScaffoldWidgetForTopGainersLosers({Key? key}) : super(key: key);
 
@@ -430,9 +424,8 @@ class ScaffoldWidgetForTopGainersLosers extends StatefulWidget {
       _ScaffoldWidgetForTopGainersLosersState();
 }
 
-class _ScaffoldWidgetForTopGainersLosersState extends State<ScaffoldWidgetForTopGainersLosers> {
-
-
+class _ScaffoldWidgetForTopGainersLosersState
+    extends State<ScaffoldWidgetForTopGainersLosers> {
   // static const routeName = '/secondScreen';
   int _currentIndex = 4;
   @override
@@ -449,13 +442,15 @@ class _ScaffoldWidgetForTopGainersLosersState extends State<ScaffoldWidgetForTop
 }
 
 class ScaffoldWidgetForIndividualCompanyDetail extends StatefulWidget {
-  const ScaffoldWidgetForIndividualCompanyDetail({Key? key, required this.title}) : super(key: key);
-  final String title;
+  const ScaffoldWidgetForIndividualCompanyDetail({Key? key,}) : super(key: key);
   @override
-  _ScaffoldWidgetForIndividualCompanyDetailState createState() => _ScaffoldWidgetForIndividualCompanyDetailState();
+  _ScaffoldWidgetForIndividualCompanyDetailState createState() =>
+      _ScaffoldWidgetForIndividualCompanyDetailState();
 }
 
-class _ScaffoldWidgetForIndividualCompanyDetailState extends State<ScaffoldWidgetForIndividualCompanyDetail> {
+class _ScaffoldWidgetForIndividualCompanyDetailState
+    extends State<ScaffoldWidgetForIndividualCompanyDetail> {
+  String selectedPlace = '';
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -468,21 +463,34 @@ class _ScaffoldWidgetForIndividualCompanyDetailState extends State<ScaffoldWidge
         children: [
           OutlinedButton.icon(
             label: Text('Search'),
-              icon: Icon(Icons.search),
-              style: OutlinedButton.styleFrom(
-                primary: Colors.green,
-                side: BorderSide(color: Colors.blue)
-              ),
-              onPressed: (){},
+            icon: Icon(Icons.search),
+            style: OutlinedButton.styleFrom(
+                primary: Colors.green, side: BorderSide(color: Colors.blue)),
+            onPressed: () async{
+              final finalResult = await showSearch(context: context, delegate: NameSearch(names: names));
+              setState(() {
+                selectedPlace = finalResult!;
+              });
+            },
           ),
-
+          selectedPlace == ''
+              ? Container()
+              : Container(
+                  width: 350,
+                  height: 350,
+                  padding: EdgeInsets.symmetric(horizontal: 35, vertical: 15),
+                  color: Colors.deepOrange,
+                  child: SearchResultsContainer(suggestions: '$selectedPlace',),
+                ),
+          // Expanded(
+          //   child: ListView.builder(itemBuilder: (context, index) {
+          //     return ListTile(
+          //       title: Text(names[index]),
+          //     );
+          //   }),
+          // ),
         ],
       ),
-
-
-
-
-
 
       // ListView.builder(
       //   itemCount: names.length,
@@ -509,8 +517,237 @@ class _ScaffoldWidgetForIndividualCompanyDetailState extends State<ScaffoldWidge
   }
 }
 
-const names = ['ACLBSL', 'ADBL', 'ADBLD83', 'AHPC', 'AIL', 'AKJCL', 'AKPL', 'ALBSL', 'ALICL', 'API', 'BARUN', 'BBC', 'BFC', 'BNT', 'BOKL', 'BPCL', 'CBBL', 'CBL', 'CBLPO', 'CCBL', 'CFCL', 'CGH', 'CHCL', 'CHDC', 'CHL', 'CIT', 'CLBSL', 'CMF1', 'CMF2', 'CORBL', 'CZBIL', 'DDBL', 'DHPL', 'EBL', 'EDBL', 'EIC', 'EICPO', 'FMDBL', 'FOWAD', 'GBBL', 'GBIME', 'GBLBS', 'GFCL', 'GHL', 'GIC', 'GILB', 'GIMES1', 'GLBSL', 'GLH', 'GLICL', 'GMFBS', 'GMFIL', 'GRDBL', 'GUFL', 'GWFD83', 'HDHPC', 'HDL', 'HGI', 'HIDCL', 'HPPL', 'HURJA', 'ICFC', 'ICFCD83', 'IGI', 'ILBS', 'JBBL', 'JBLB', 'JFL', 'JLI', 'JOSHI', 'JSLBB', 'KBL', 'KEF', 'KKHC', 'KLBSL', 'KMCDB', 'KPCL', 'KRBL', 'KSBBL', 'LBBL', 'LBL', 'LBLD88', 'LEC', 'LEMF', 'LGIL', 'LICN', 'LLBS', 'LUK', 'MBL', 'MDB', 'MEGA', 'MEGAPO', 'MEN', 'MERO', 'MFIL', 'MFLD85', 'MHNL', 'MKJC', 'MKLB', 'MLBBL', 'MLBL', 'MLBSL', 'MMFDB', 'MNBBL', 'MPFL', 'MSLB', 'NABBC', 'NABIL', 'NBB', 'NBF2', 'NBL', 'NCCB', 'NEF', 'NFS', 'NGPL', 'NHDL', 'NHPC', 'NIBLPF', 'NIBSF1', 'NIBSF2', 'NICA', 'NICAD8283', 'NICBF', 'NICGF', 'NICL', 'NICLBSL', 'NICSF', 'NIFRA', 'NIL', 'NLBBL', 'NLG', 'NLIC', 'NLICL', 'NMB', 'NMB50', 'NMBHF1', 'NMBMF', 'NMFBS', 'NRIC', 'NRN', 'NSLB', 'NTC', 'NUBL', 'OHL', 'PBD85', 'PBLD84', 'PCBL', 'PFL', 'PIC', 'PICL', 'PLI', 'PLIC', 'PMHPL', 'PPCL', 'PRIN', 'PROFL', 'PRVU', 'PRVUPO', 'PSF', 'RADHI', 'RBCL', 'RBCLPO', 'RHPC', 'RHPL', 'RLFL', 'RLI', 'RMDC', 'RMF1', 'RRHP', 'RSDC', 'RURU', 'SABSL', 'SADBL', 'SAEF', 'SAND2085', 'SANIMA', 'SAPDBL', 'SBCF', 'SBD87', 'SBI', 'SBIBD86', 'SBL', 'SCB', 'SDLBSL', 'SEF', 'SFCL', 'SFMF', 'SGI', 'SHEL', 'SHINE', 'SHIVM', 'SHL', 'SHPC', 'SIC', 'SICL', 'SIFC', 'SIGS2', 'SIL', 'SINDU', 'SJCL', 'SKBBL', 'SLBBL', 'SLBBLP', 'SLBSL', 'SLCF', 'SLI', 'SLICL', 'SMATA', 'SMB', 'SMFBS', 'SMFDB', 'SPDL', 'SRBL', 'SRBLD83', 'SRD80', 'SSHL', 'STC', 'SWBBL', 'TRH', 'UIC', 'ULI', 'UMHL', 'UMRH', 'UNHPL', 'UNL', 'UPCL', 'UPPER', 'USLB', 'VLBS',];
-
+final List<String> names = [
+  'ACLBSL',
+  'ADBL',
+  'ADBLD83',
+  'AHPC',
+  'AIL',
+  'AKJCL',
+  'AKPL',
+  'ALBSL',
+  'ALICL',
+  'API',
+  'BARUN',
+  'BBC',
+  'BFC',
+  'BNT',
+  'BOKL',
+  'BPCL',
+  'CBBL',
+  'CBL',
+  'CBLPO',
+  'CCBL',
+  'CFCL',
+  'CGH',
+  'CHCL',
+  'CHDC',
+  'CHL',
+  'CIT',
+  'CLBSL',
+  'CMF1',
+  'CMF2',
+  'CORBL',
+  'CZBIL',
+  'DDBL',
+  'DHPL',
+  'EBL',
+  'EDBL',
+  'EIC',
+  'EICPO',
+  'FMDBL',
+  'FOWAD',
+  'GBBL',
+  'GBIME',
+  'GBLBS',
+  'GFCL',
+  'GHL',
+  'GIC',
+  'GILB',
+  'GIMES1',
+  'GLBSL',
+  'GLH',
+  'GLICL',
+  'GMFBS',
+  'GMFIL',
+  'GRDBL',
+  'GUFL',
+  'GWFD83',
+  'HDHPC',
+  'HDL',
+  'HGI',
+  'HIDCL',
+  'HPPL',
+  'HURJA',
+  'ICFC',
+  'ICFCD83',
+  'IGI',
+  'ILBS',
+  'JBBL',
+  'JBLB',
+  'JFL',
+  'JLI',
+  'JOSHI',
+  'JSLBB',
+  'KBL',
+  'KEF',
+  'KKHC',
+  'KLBSL',
+  'KMCDB',
+  'KPCL',
+  'KRBL',
+  'KSBBL',
+  'LBBL',
+  'LBL',
+  'LBLD88',
+  'LEC',
+  'LEMF',
+  'LGIL',
+  'LICN',
+  'LLBS',
+  'LUK',
+  'MBL',
+  'MDB',
+  'MEGA',
+  'MEGAPO',
+  'MEN',
+  'MERO',
+  'MFIL',
+  'MFLD85',
+  'MHNL',
+  'MKJC',
+  'MKLB',
+  'MLBBL',
+  'MLBL',
+  'MLBSL',
+  'MMFDB',
+  'MNBBL',
+  'MPFL',
+  'MSLB',
+  'NABBC',
+  'NABIL',
+  'NBB',
+  'NBF2',
+  'NBL',
+  'NCCB',
+  'NEF',
+  'NFS',
+  'NGPL',
+  'NHDL',
+  'NHPC',
+  'NIBLPF',
+  'NIBSF1',
+  'NIBSF2',
+  'NICA',
+  'NICAD8283',
+  'NICBF',
+  'NICGF',
+  'NICL',
+  'NICLBSL',
+  'NICSF',
+  'NIFRA',
+  'NIL',
+  'NLBBL',
+  'NLG',
+  'NLIC',
+  'NLICL',
+  'NMB',
+  'NMB50',
+  'NMBHF1',
+  'NMBMF',
+  'NMFBS',
+  'NRIC',
+  'NRN',
+  'NSLB',
+  'NTC',
+  'NUBL',
+  'OHL',
+  'PBD85',
+  'PBLD84',
+  'PCBL',
+  'PFL',
+  'PIC',
+  'PICL',
+  'PLI',
+  'PLIC',
+  'PMHPL',
+  'PPCL',
+  'PRIN',
+  'PROFL',
+  'PRVU',
+  'PRVUPO',
+  'PSF',
+  'RADHI',
+  'RBCL',
+  'RBCLPO',
+  'RHPC',
+  'RHPL',
+  'RLFL',
+  'RLI',
+  'RMDC',
+  'RMF1',
+  'RRHP',
+  'RSDC',
+  'RURU',
+  'SABSL',
+  'SADBL',
+  'SAEF',
+  'SAND2085',
+  'SANIMA',
+  'SAPDBL',
+  'SBCF',
+  'SBD87',
+  'SBI',
+  'SBIBD86',
+  'SBL',
+  'SCB',
+  'SDLBSL',
+  'SEF',
+  'SFCL',
+  'SFMF',
+  'SGI',
+  'SHEL',
+  'SHINE',
+  'SHIVM',
+  'SHL',
+  'SHPC',
+  'SIC',
+  'SICL',
+  'SIFC',
+  'SIGS2',
+  'SIL',
+  'SINDU',
+  'SJCL',
+  'SKBBL',
+  'SLBBL',
+  'SLBBLP',
+  'SLBSL',
+  'SLCF',
+  'SLI',
+  'SLICL',
+  'SMATA',
+  'SMB',
+  'SMFBS',
+  'SMFDB',
+  'SPDL',
+  'SRBL',
+  'SRBLD83',
+  'SRD80',
+  'SSHL',
+  'STC',
+  'SWBBL',
+  'TRH',
+  'UIC',
+  'ULI',
+  'UMHL',
+  'UMRH',
+  'UNHPL',
+  'UNL',
+  'UPCL',
+  'UPPER',
+  'USLB',
+  'VLBS',
+];
 
 // class ScaffoldWidgetForSearchCompanyDetailsPage extends StatefulWidget {
 //   final int index;

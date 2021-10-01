@@ -2,9 +2,8 @@ import 'package:flutter/material.dart';
 
 class NameSearch extends SearchDelegate<String> {
   final List<String> names;
- late String result;
 
-  NameSearch(this.names);
+  NameSearch({required this.names});
 
   @override
   List<Widget> buildActions(BuildContext context) {
@@ -23,27 +22,32 @@ class NameSearch extends SearchDelegate<String> {
     return IconButton(
       icon: Icon(Icons.arrow_back),
       onPressed: () {
-        close(context, result);
+         close(context, query);
       },
     );
   }
 
   @override
   Widget buildResults(BuildContext context) {
-    final suggestions = names.where((name) {
+    final List<String> allStocks = names.where((name) {
       return name.toLowerCase().contains(query.toLowerCase());
-    });
+    }).toList();
 
     return ListView.builder(
-      itemCount: suggestions.length,
+      itemCount: allStocks.length,
       itemBuilder: (BuildContext context, int index) {
         return ListTile(
           title: Text(
-            suggestions.elementAt(index),
+            allStocks.elementAt(index),
           ),
           onTap: () {
-            result = suggestions.elementAt(index);
-            close(context, result);
+
+            names.where((stockSymbol) => stockSymbol.toLowerCase().contains(query.toLowerCase()));
+
+
+            close(context, query);
+            // result = suggestions.elementAt(index);
+            // close(context, result);
           },
         );
       },
@@ -52,19 +56,23 @@ class NameSearch extends SearchDelegate<String> {
 
   @override
   Widget buildSuggestions(BuildContext context) {
-    final suggestions = names.where((name) {
+    final List<String> stockSuggestions = names.where((name) {
       return name.toLowerCase().contains(query.toLowerCase());
-    });
+    }).toList();
 
     return ListView.builder(
-      itemCount: suggestions.length,
+      itemCount: stockSuggestions.length,
       itemBuilder: (BuildContext context, int index) {
         return ListTile(
           title: Text(
-            suggestions.elementAt(index),
+            stockSuggestions.elementAt(index),
           ),
           onTap: () {
-            query = suggestions.elementAt(index);
+           // debugPrint(query);
+            query = stockSuggestions.elementAt(index);
+            close(context, query);
+            // result = suggestions.elementAt(index);
+            // close(context, result);
           },
         );
       },

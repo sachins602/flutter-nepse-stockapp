@@ -2,7 +2,7 @@
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 class SearchResultsContainer extends StatefulWidget {
-  String suggestions;
+  final String suggestions;
   SearchResultsContainer({Key? key, required this.suggestions}) : super(key: key);
 
   @override
@@ -27,9 +27,9 @@ class _SearchResultsContainerState extends State<SearchResultsContainer> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: MediaQuery.of(context).size.height,
-      width: MediaQuery.of(context).size.height,
-      child: Text(stringResponse![0]),
+      height: 300,
+      width:300,
+      child: Text("hello"),
     );
   }
 }

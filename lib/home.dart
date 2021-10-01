@@ -101,7 +101,7 @@ class _HomeContainerState extends State<HomeContainer> {
                             padding:
                             EdgeInsetsDirectional.fromSTEB(0, 0, 0, 0),
                             child: Row(
-                              mainAxisSize: MainAxisSize.max,
+                              mainAxisSize: MainAxisSize.min,
                               children: [
                                 Text(
                                   '${indexList[0].index.toUpperCase()} :',
@@ -128,9 +128,9 @@ class _HomeContainerState extends State<HomeContainer> {
                           ),
                           Padding(
                             padding:
-                            EdgeInsetsDirectional.fromSTEB(0, 13, 20, 0),
+                            EdgeInsetsDirectional.fromSTEB(0, 13, 0, 0),
                             child: Row(
-                              mainAxisSize: MainAxisSize.max,
+                              mainAxisSize: MainAxisSize.min,
                               mainAxisAlignment: MainAxisAlignment.start,
                               children: [
                                 Text(

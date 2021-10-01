@@ -68,7 +68,7 @@ class _AddStockScreenState extends State<AddStockScreen> {
                   keyboardType: TextInputType.number,
                   decoration: InputDecoration(labelText: 'Stock Amount'),
                   validator: (value) {
-                    if (value == null || value.isEmpty) {
+                    if (value == null || value.isEmpty ) {
                       return 'Stock Amount Required';
                     }
                     return null;
