@@ -57,12 +57,17 @@ class _TopGainersLosersContainerState extends State<TopGainersLosersContainer> {
         width: MediaQuery.of(context).size.width,
         height: MediaQuery.of(context).size.height * 1,
         decoration: BoxDecoration(
-          color: Color(0xFF405D7A),
+          color: Color(0xFF23292F),
           shape: BoxShape.rectangle,
         ),
         child: Column(
           children: [
-            Text("Top Gainers : "),
+            Text("Top Gainers : ",
+            style: TextStyle(
+              color: Colors.green,
+              fontWeight: FontWeight.bold,
+              fontSize: 20,
+            ),),
             Container(
               height: MediaQuery.of(context).size.height * 0.4,
               child: ListView.builder(
@@ -94,7 +99,12 @@ class _TopGainersLosersContainerState extends State<TopGainersLosersContainer> {
                     : Container(),
               ),
             ),
-            Text("Top Losers : "),
+            Text("Top Losers : ",
+              style: TextStyle(
+                color: Colors.redAccent,
+                fontWeight: FontWeight.bold,
+                fontSize: 20,
+              ),),
             Container(
               height: MediaQuery.of(context).size.height * 0.4,
               child: ListView.builder(
