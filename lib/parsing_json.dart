@@ -285,7 +285,7 @@ class IndividualCompanyData {
         required this.bookValue,
         required this.pBV});
 
-  IndividualCompanyData.fromJson(Map<String, dynamic> json) {
+   IndividualCompanyData.fromJson(Map<String, dynamic> json) {
     companyName = json['Company name'];
     sector = json['Sector'];
     sharesOutstanding = json['Shares Outstanding'];

@@ -6,7 +6,7 @@ import 'package:jsonproject/controller/portfolio_data_controller.dart';
 import 'package:jsonproject/home.dart';
 import 'package:get/get.dart';
 import 'dart:async';
-//import 'package:http/http.dart' as http;
+import 'package:http/http.dart' as http;
 
 import 'package:jsonproject/json_api.dart';
 import 'package:jsonproject/marketdata.dart';
@@ -451,8 +451,11 @@ class ScaffoldWidgetForIndividualCompanyDetail extends StatefulWidget {
 class _ScaffoldWidgetForIndividualCompanyDetailState
     extends State<ScaffoldWidgetForIndividualCompanyDetail> {
   String selectedPlace = '';
+  String url = '';
   @override
   Widget build(BuildContext context) {
+    // final response =  await http.get(Uri.parse(url);
+
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Color(0xFF262626),
@@ -469,19 +472,35 @@ class _ScaffoldWidgetForIndividualCompanyDetailState
             onPressed: () async{
               final finalResult = await showSearch(context: context, delegate: NameSearch(names: names));
               setState(() {
+
                 selectedPlace = finalResult!;
+
               });
+              // url = 'http://10.0.2.2:5000/company/$selectedPlace';
             },
           ),
-          selectedPlace == ''
-              ? Container()
-              : Container(
-                  width: 350,
-                  height: 350,
-                  padding: EdgeInsets.symmetric(horizontal: 35, vertical: 15),
-                  color: Colors.deepOrange,
-                  child: SearchResultsContainer(suggestions: '$selectedPlace',),
-                ),
+          if (selectedPlace == '') Container()
+          else
+            Container(
+              child: IconButton(onPressed: () {
+                Navigator.pop(context);
+                Navigator.push(context, MaterialPageRoute(builder: (context) => SearchResultsContainer(suggestions: selectedPlace)));
+
+              }, icon: Icon(Icons.search),),
+            )
+
+            // Container(
+            //       width: 350,
+            //       height: 350,
+            //       padding: EdgeInsets.symmetric(horizontal: 35, vertical: 15),
+            //       color: Colors.deepOrange,
+            //       child: Column(
+            //         children: [
+            //
+            //
+            //         ],
+            //       ),
+            //     ),
           // Expanded(
           //   child: ListView.builder(itemBuilder: (context, index) {
           //     return ListTile(
