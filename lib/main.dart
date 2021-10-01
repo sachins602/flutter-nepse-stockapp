@@ -13,6 +13,7 @@ import 'package:jsonproject/marketdata.dart';
 import 'package:jsonproject/portfolio.dart';
 import 'package:jsonproject/search_company_details.dart';
 import 'package:jsonproject/topgainers_losers.dart';
+import 'package:jsonproject/ui/calculator_screen.dart';
 import 'package:jsonproject/ui/company_extradetails_page.dart';
 import 'package:jsonproject/ui/login_screen.dart';
 import 'package:jsonproject/widget/indiviual_comapny_detail.dart';
@@ -50,6 +51,7 @@ class _LoginPageEntryPointState extends State<LoginPageEntryPoint> {
         '/fourthScreen': (context) => ScaffoldWidgetForMarketData(),
         '/fifthScreen': (context) => ScaffoldWidgetForTopGainersLosers(),
         '/sixthScreen': (context) => ScaffoldWidgetForIndividualCompanyDetail(),
+        '/seventhScreen' : (context) => CalculatorScreen(),
 
         //'/sixthScreen': (context) => LoginPageEntryPoint(),
       },

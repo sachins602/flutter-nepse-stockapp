@@ -12,6 +12,7 @@ class Defaults {
     'Market Data',
     'Top Gainers/Losers',
     'Search',
+    'Calculator',
     'Logout',
   ];
 
@@ -22,6 +23,7 @@ class Defaults {
     Icons.library_books,
     Icons.airplay,
     Icons.search,
+    Icons.calculate,
     Icons.logout,
   ];
 }

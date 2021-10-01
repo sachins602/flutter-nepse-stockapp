@@ -34,6 +34,9 @@ final DataController controller = Get.find();
       child: Flexible(child: Text('Search')),
     ),
     Center(
+      child: Flexible(child: Text('Calculator')),
+    ),
+    Center(
       child: Text('Logout'),
     ),
   ];
@@ -129,6 +132,10 @@ final DataController controller = Get.find();
                       AppDrawerTile(
                         index: 6,
                         onTap: updateState(6),
+                      ),
+                      AppDrawerTile(
+                        index: 7,
+                        onTap: updateState(7),
                       ),
                       const SizedBox(
                         height: 30,
@@ -249,6 +256,12 @@ class AppDrawerTile extends StatelessWidget {
               }
               break;
             case 6:
+              {
+                Navigator.pop(context);
+                Navigator.pushNamed(context, '/seventhScreen');
+              }
+              break;
+            case 7:
               {
                 logout(context);
               }
