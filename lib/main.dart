@@ -442,7 +442,9 @@ class _ScaffoldWidgetForTopGainersLosersState
 }
 
 class ScaffoldWidgetForIndividualCompanyDetail extends StatefulWidget {
-  const ScaffoldWidgetForIndividualCompanyDetail({Key? key,}) : super(key: key);
+  const ScaffoldWidgetForIndividualCompanyDetail({
+    Key? key,
+  }) : super(key: key);
   @override
   _ScaffoldWidgetForIndividualCompanyDetailState createState() =>
       _ScaffoldWidgetForIndividualCompanyDetailState();
@@ -457,6 +459,7 @@ class _ScaffoldWidgetForIndividualCompanyDetailState
     // final response =  await http.get(Uri.parse(url);
 
     return Scaffold(
+      backgroundColor: Color(0xFF101010),
       appBar: AppBar(
         backgroundColor: Color(0xFF262626),
         title: Text("Stock App"),
@@ -469,38 +472,48 @@ class _ScaffoldWidgetForIndividualCompanyDetailState
             icon: Icon(Icons.search),
             style: OutlinedButton.styleFrom(
                 primary: Colors.green, side: BorderSide(color: Colors.blue)),
-            onPressed: () async{
-              final finalResult = await showSearch(context: context, delegate: NameSearch(names: names));
+            onPressed: () async {
+              final finalResult = await showSearch(
+                  context: context, delegate: NameSearch(names: names));
               setState(() {
-
                 selectedPlace = finalResult!;
-
               });
               // url = 'http://10.0.2.2:5000/company/$selectedPlace';
             },
           ),
-          if (selectedPlace == '') Container()
+          if (selectedPlace == '')
+            Container()
           else
             Container(
-              child: IconButton(onPressed: () {
-                Navigator.pop(context);
-                Navigator.push(context, MaterialPageRoute(builder: (context) => SearchResultsContainer(suggestions: selectedPlace)));
+              height: 250,
+              width: 320,
+              padding: EdgeInsets.only(left: 50, top: 80),
+              child: RaisedButton(
 
-              }, icon: Icon(Icons.search),),
-            )
+                color: Colors.blue,
+                child: Text("PRESS HERE FOR DETAILS OF " + selectedPlace),
+                onPressed: () {
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => SearchResultsContainer(
+                              suggestions: selectedPlace)));
+                },
+              ),
+            ),
 
-            // Container(
-            //       width: 350,
-            //       height: 350,
-            //       padding: EdgeInsets.symmetric(horizontal: 35, vertical: 15),
-            //       color: Colors.deepOrange,
-            //       child: Column(
-            //         children: [
-            //
-            //
-            //         ],
-            //       ),
-            //     ),
+          // Container(
+          //       width: 350,
+          //       height: 350,
+          //       padding: EdgeInsets.symmetric(horizontal: 35, vertical: 15),
+          //       color: Colors.deepOrange,
+          //       child: Column(
+          //         children: [
+          //
+          //
+          //         ],
+          //       ),
+          //     ),
           // Expanded(
           //   child: ListView.builder(itemBuilder: (context, index) {
           //     return ListTile(
