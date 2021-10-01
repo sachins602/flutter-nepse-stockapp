@@ -473,14 +473,13 @@ class _ScaffoldWidgetForIndividualCompanyDetailState
             label: Text('Search'),
             icon: Icon(Icons.search),
             style: OutlinedButton.styleFrom(
-                primary: Colors.green,
-                side: BorderSide(color: Colors.blueGrey.shade900)),
-            onPressed: () {
-              Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                      builder: (context) =>
-                          SearchResultsContainer(suggestions: selectedPlace)));
+                primary: Colors.green, side: BorderSide(color: Colors.blue)),
+            onPressed: () async {
+              final finalResult = await showSearch(
+                  context: context, delegate: NameSearch(names: names));
+              setState(() {
+                selectedPlace = finalResult!;
+              });
             },
           ),
           if (selectedPlace == '')
@@ -500,13 +499,14 @@ class _ScaffoldWidgetForIndividualCompanyDetailState
                 style: OutlinedButton.styleFrom(
                     primary: Colors.green,
                     side: BorderSide(color: Colors.blueGrey.shade900)),
-                onPressed: () async {
-                  final finalResult = await showSearch(
-                      context: context, delegate: NameSearch(names: names));
-                  setState(() {
-                    selectedPlace = finalResult!;
-                  });
-                },
+                  onPressed: () {
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => SearchResultsContainer(
+                                suggestions: selectedPlace)));
+                  },
+
               ),
 
               // ElevatedButton(
