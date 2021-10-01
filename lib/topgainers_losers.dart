@@ -62,8 +62,9 @@ class _TopGainersLosersContainerState extends State<TopGainersLosersContainer> {
         ),
         child: Column(
           children: [
+            Text("Top Gainers : "),
             Container(
-              height: MediaQuery.of(context).size.height * 0.435,
+              height: MediaQuery.of(context).size.height * 0.4,
               child: ListView.builder(
                 itemCount: characterList.length ~/ 2,
                 itemBuilder: (context, index) => characterList[index].status ==
@@ -77,23 +78,25 @@ class _TopGainersLosersContainerState extends State<TopGainersLosersContainer> {
                             bottom: BorderSide(width: 1, color: Colors.white),
                           ),
                         ),
-                        child: ListTile(
-                          title: Text(
-                            characterList[index].symbol,
-                            style: TextStyle(color: Colors.white),
-                          ),
-                          subtitle: Text(
-                            "Rs. ${characterList[index].change}",
-                            style: TextStyle(color: Colors.white),
-                          ),
-                          contentPadding: EdgeInsets.only(left: 50, right: 50),
+                        child:
+                            ListTile(
+                              title: Text(
+                                characterList[index].symbol,
+                                style: TextStyle(color: Colors.white),
+                              ),
+                              subtitle: Text(
+                                "Rs. ${characterList[index].change}",
+                                style: TextStyle(color: Colors.white),
+                              ),
+                              contentPadding: EdgeInsets.only(left: 50, right: 50),
                         ),
                       )
                     : Container(),
               ),
             ),
+            Text("Top Losers : "),
             Container(
-              height: MediaQuery.of(context).size.height * 0.435,
+              height: MediaQuery.of(context).size.height * 0.4,
               child: ListView.builder(
                 itemCount: characterList.length,
                 itemBuilder: (context, index) => characterList[index].status ==
@@ -108,16 +111,17 @@ class _TopGainersLosersContainerState extends State<TopGainersLosersContainer> {
                           ),
                         ),
                         child: ListTile(
-                          title: Text(
-                            characterList[index].symbol,
-                            style: TextStyle(color: Colors.white),
-                          ),
-                          subtitle: Text(
-                            "Rs. ${characterList[index].change}",
-                            style: TextStyle(color: Colors.white),
-                          ),
-                          contentPadding: EdgeInsets.only(left: 50, right: 50),
-                        ),
+                              title: Text(
+                                characterList[index].symbol,
+                                style: TextStyle(color: Colors.white),
+                              ),
+                              subtitle: Text(
+                                "Rs. ${characterList[index].change}",
+                                style: TextStyle(color: Colors.white),
+                              ),
+                              contentPadding: EdgeInsets.only(left: 50, right: 50),
+                            ),
+
                       )
                     : Container(),
               ),

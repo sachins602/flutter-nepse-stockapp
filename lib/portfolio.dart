@@ -133,9 +133,9 @@ class _PortfolioContainerState extends State<PortfolioContainer> {
     });
 
     return Scaffold(
-      backgroundColor: Colors.blueGrey,
+      backgroundColor: Color(0xFF181D2A),
       appBar: AppBar(
-        backgroundColor: Colors.blueGrey,
+        backgroundColor: Color(0xFF1F1F21),
         title: Text(''),
         actions: [
           IconButton(

@@ -97,73 +97,76 @@ final DataController controller = Get.find();
                 ),
               ),
               Expanded(
-                child: ListView(
-                  padding: EdgeInsets.zero,
-                  children: [
-                    AppDrawerTile(
-                      index: 0,
-                      onTap: updateState(0),
-                    ),
-                    AppDrawerTile(
-                      index: 1,
-                      onTap: updateState(1),
-                    ),
-                    AppDrawerTile(
-                      index: 2,
-                      onTap: updateState(2),
-                    ),
-                    AppDrawerTile(
-                      index: 3,
-                      onTap: updateState(3),
-                    ),
-                    AppDrawerTile(
-                      index: 4,
-                      onTap: updateState(4),
-                    ),
-                    AppDrawerTile(
-                      index: 5,
-                      onTap: updateState(5),
-                    ),
-                    AppDrawerTile(
-                      index: 6,
-                      onTap: updateState(6),
-                    ),
-                    const SizedBox(
-                      height: 30,
-                    ),
-                    const AppDrawerDivider(),
-                    const SizedBox(
-                      height: 10,
-                    ),
-                    Center(
-                      child: Text(
-                        'Stock Market App',
-                        style: TextStyle(fontWeight: FontWeight.w500,
-                          fontStyle: FontStyle.italic,
-                          fontSize: 20,
-                          color: Defaults.drawerItemSelectedColor,
+                child: Container(
+                  color: Color(0xFF181D2A),
+                  child: ListView(
+                    padding: EdgeInsets.zero,
+                    children: [
+                      AppDrawerTile(
+                        index: 0,
+                        onTap: updateState(0),
+                      ),
+                      AppDrawerTile(
+                        index: 1,
+                        onTap: updateState(1),
+                      ),
+                      AppDrawerTile(
+                        index: 2,
+                        onTap: updateState(2),
+                      ),
+                      AppDrawerTile(
+                        index: 3,
+                        onTap: updateState(3),
+                      ),
+                      AppDrawerTile(
+                        index: 4,
+                        onTap: updateState(4),
+                      ),
+                      AppDrawerTile(
+                        index: 5,
+                        onTap: updateState(5),
+                      ),
+                      AppDrawerTile(
+                        index: 6,
+                        onTap: updateState(6),
+                      ),
+                      const SizedBox(
+                        height: 30,
+                      ),
+                      const AppDrawerDivider(),
+                      const SizedBox(
+                        height: 10,
+                      ),
+                      Center(
+                        child: Text(
+                          'Stock Market App',
+                          style: TextStyle(fontWeight: FontWeight.w500,
+                            fontStyle: FontStyle.italic,
+                            fontSize: 20,
+                            color: Defaults.drawerItemSelectedColor,
+                          ),
                         ),
                       ),
-                    ),
-                    const SizedBox(
-                      height: 5,
-                    ),
-                    Center(
-                      child: Text(
-                        'Version 1.0.0',
-                        style: TextStyle(
-                          fontWeight: FontWeight.w500,
-                          fontStyle: FontStyle.italic,
-                          fontSize: 12,
-                          color: Defaults.drawerItemColor,
+                      const SizedBox(
+                        height: 5,
+                      ),
+                      Center(
+                        child: Text(
+                          'Version 1.0.0',
+                          style: TextStyle(
+                            fontWeight: FontWeight.w500,
+                            fontStyle: FontStyle.italic,
+                            fontSize: 12,
+                            color: Defaults.drawerItemColor,
+                          ),
                         ),
                       ),
-                    ),
-                    const SizedBox(
-                      height: 10,
-                    ),
-                    const AppDrawerDivider(),
-                  ],
+                      const SizedBox(
+                        height: 10,
+                      ),
+                      const AppDrawerDivider(),
+                    ],
+                  ),
                 ),
               ),
             ],

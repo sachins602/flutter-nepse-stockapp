@@ -59,6 +59,7 @@ class _SearchResultsContainerState extends State<SearchResultsContainer> {
 
         return Scaffold(
           appBar: AppBar(
+            backgroundColor: Color(0xFF181D2A),
             title: Text("Stock App"),
           ),
 
