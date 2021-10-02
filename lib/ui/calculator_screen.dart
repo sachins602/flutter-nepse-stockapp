@@ -8,6 +8,7 @@ class CalculatorScreen extends StatefulWidget {
 }
 
 class _CalculatorScreenState extends State<CalculatorScreen> {
+
   PageController _pageController = PageController(
     initialPage: 0,
   );
@@ -49,11 +50,12 @@ class _CalculatorScreenState extends State<CalculatorScreen> {
         items: [
           BottomNavigationBarItem(
             icon: Icon(Icons.add),
-            title: Text("Buy"),
+
+            label: "Buy",
           ),
           BottomNavigationBarItem(
             icon: Icon(Icons.trending_up),
-            title: Text("Sell"),
+            label: "Sell",
           ),
           // BottomNavigationBarItem(
           //   icon: Icon(Icons.dashboard),

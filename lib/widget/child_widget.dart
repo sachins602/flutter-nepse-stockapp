@@ -1,22 +1,31 @@
 import 'package:flutter/material.dart';
 
-
-class ChildWidget extends StatelessWidget {
+class ChildWidget extends StatefulWidget {
   final AvailableNumber number;
 
   const ChildWidget({Key? key, required this.number}) : super(key: key);
 
   @override
+  _ChildWidgetState createState() => _ChildWidgetState();
+}
+
+class _ChildWidgetState extends State<ChildWidget> {
+  // double?
+  var companyAmount;
+  final buyAmountController = new TextEditingController();
+  final buyPriceController = new TextEditingController();
+  @override
   Widget build(BuildContext context) {
     String file = "";
-    if (number == AvailableNumber.First) {
+    if (widget.number == AvailableNumber.First) {
       file = "first";
-    } else if (number == AvailableNumber.Second) {
+    } else if (widget.number == AvailableNumber.Second) {
       file = "second";
       // } else {
       //   file = "third";
       // }
     }
+
     return SafeArea(
       child: Padding(
         padding: const EdgeInsets.all(15.0),
@@ -25,6 +34,7 @@ class ChildWidget extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
             TextField(
+              controller: buyAmountController,
               decoration: InputDecoration(
                 enabledBorder: const OutlineInputBorder(
                   borderSide: const BorderSide(color: Colors.white, width: 1.0),
@@ -33,11 +43,11 @@ class ChildWidget extends StatelessWidget {
                 hintStyle: TextStyle(
                   color: Colors.white,
                 ),
-                    
               ),
               keyboardType: TextInputType.number,
             ),
             TextField(
+              controller: buyPriceController,
               decoration: InputDecoration(
                 enabledBorder: const OutlineInputBorder(
                   borderSide: const BorderSide(color: Colors.white, width: 1.0),
@@ -47,33 +57,72 @@ class ChildWidget extends StatelessWidget {
                   color: Colors.white,
                 ),
               ),
-              
               keyboardType: TextInputType.number,
             ),
-            Text("Share Amount       ",
-            style: TextStyle(
-              color: Colors.white,
-              fontSize: 18,
-            ),),
-            Text("SEBON Commission   ",
-            style: TextStyle(
-              color: Colors.white,
-              fontSize: 18,
-            ),),
-            Text("Broker Commission   ",
-            style: TextStyle(
-              color: Colors.white,
-              fontSize: 18,
-            ),),
-            Text("DP Fee              ",
-            style: TextStyle(
-              color: Colors.white,
-              fontSize: 18,
-            ),),
+            ElevatedButton(
+              onPressed: () {
+                calculateBuy();
+              },
+              child: Text(
+                "Calculate",
+                style: TextStyle(color: Colors.white),
+              ),
+            ),
+            Column(
+              children: [
+                if(companyAmount != null)
+
+                    Text(
+                      "Share Amount       Rs" + companyAmount,
+                      style: TextStyle(
+                        color: Colors.white,
+                        fontSize: 18,
+                      ),
+                    ),
+                    Text(
+                      "SEBON Commission   ",
+                      style: TextStyle(
+                        color: Colors.white,
+                        fontSize: 18,
+                      ),
+                    ),
+                    Text(
+                      "Broker Commission   ",
+                      style: TextStyle(
+                        color: Colors.white,
+                        fontSize: 18,
+                      ),
+                    ),
+                    Text(
+                      "DP Fee              ",
+                      style: TextStyle(
+                        color: Colors.white,
+                        fontSize: 18,
+                      ),
+                    ),
+
+
+              ],
+            ),
           ],
         ),
       ),
     );
+
+    return Container();
+  }
+
+  void calculateBuy() {
+    final shareAmount = (double.parse(buyAmountController.text) *
+            double.parse(buyPriceController.text))
+        .toStringAsFixed(2);
+    final sharePrice = (double.parse(buyPriceController.text) *
+        double.parse(buyPriceController.text))
+        .toStringAsFixed(2);
+    setState(() {
+      companyAmount = '\.$shareAmount';
+
+    });
   }
 }
 
