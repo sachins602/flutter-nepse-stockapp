@@ -43,6 +43,18 @@ class _HomeContainerState extends State<HomeContainer> {
     });
   }
 
+  colorPicker(){
+    Color myColor;
+    if(double.parse(indexList[3].pointChange) <= 0 ){
+        myColor = Colors.red;
+    }
+    else
+      {
+      myColor = Colors.green;
+    }
+    return myColor;
+  }
+
   @override
   void initState() {
     super.initState();
@@ -82,12 +94,20 @@ class _HomeContainerState extends State<HomeContainer> {
             Padding(
               padding: EdgeInsetsDirectional.fromSTEB(0, 20, 0, 20),
               child: Container(
-                width: MediaQuery.of(context).size.width,
+                width: MediaQuery.of(context).size.width-15,
                 height: 120,
                 decoration: BoxDecoration(
-                  color: Color(0xFF212736),
+                  color: colorPicker(),
+                  borderRadius: BorderRadius.circular(25),
+                    boxShadow: [
+                      BoxShadow(
+                          color: colorPicker().withOpacity(0.7),
+                          blurRadius: 10,
+                          spreadRadius: 7
+                      )
+                    ]
                 ),
-                child: Row(
+                child:  Row(
                   mainAxisSize: MainAxisSize.max,
                   children: [
                     Padding(
@@ -113,16 +133,42 @@ class _HomeContainerState extends State<HomeContainer> {
                                 ),
                                 Padding(
                                   padding: EdgeInsetsDirectional.fromSTEB(
-                                      10, 0, 0, 0),
+                                      10, 0, 30, 0),
                                   child: Text(
                                     '${indexList[0].close}',
                                     style:
                                     TextStyle(
                                       fontFamily: 'Lexend Deca',
-                                      color: (double.parse(indexList[3].pointChange) <= 0)? Colors.redAccent : Colors.green,
+                                      color: Colors.white,
                                     ),
                                   ),
-                                )
+                                ),
+                                Container(
+                                  decoration: BoxDecoration(
+                                      borderRadius: BorderRadius.circular(20),
+                                      boxShadow: [
+                                        BoxShadow(
+                                            color: Colors.black12.withOpacity(0.3),
+                                            blurRadius: 10,
+                                            spreadRadius: 3
+                                        )
+                                      ]
+                                  ),
+                                  child: Card(
+                                    color: (stringResponse.toString()=='Market Closed')? Colors.redAccent: Colors.green,
+                                    shape: RoundedRectangleBorder(
+                                      borderRadius: BorderRadius.circular(20),
+                                    ),
+                                    elevation: 50,
+                                    child: Container(
+                                        alignment: Alignment.center,
+                                        height: 40,
+                                        width: 170,
+                                        child: Text(stringResponse.toString(),style: TextStyle(color: Colors.white,fontSize: 20),)
+                                    ),
+                                    //clipBehavior: Clip.antiAlias,
+                                  ),
+                                ),
                               ],
                             ),
                           ),
@@ -158,21 +204,7 @@ class _HomeContainerState extends State<HomeContainer> {
                         ],
                       ),
                     ),
-                    Card(
-                      color: (stringResponse.toString()=='Market Closed')? Colors.redAccent: Colors.greenAccent,
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(20),
-                      ),
-                      elevation: 50,
-                      child: Container(
 
-                          alignment: Alignment.center,
-                          height: 40,
-                          width: 80,
-                          child: SingleChildScrollView(child: Text(stringResponse.toString(),style: TextStyle(color: Colors.white,fontSize: 12),)),
-                      ),
-                      //clipBehavior: Clip.antiAlias,
-                    ),
                   ],
                 ),
               ),
@@ -180,10 +212,18 @@ class _HomeContainerState extends State<HomeContainer> {
             Padding(
               padding: EdgeInsetsDirectional.fromSTEB(0, 20, 0, 20),
               child: Container(
-                width: MediaQuery.of(context).size.width,
+                width: MediaQuery.of(context).size.width-15,
                 height: 120,
                 decoration: BoxDecoration(
-                  color:Color(0xFF212736),
+                    color: colorPicker(),
+                    borderRadius: BorderRadius.circular(25),
+                    boxShadow: [
+                      BoxShadow(
+                          color: colorPicker().withOpacity(0.7),
+                          blurRadius: 10,
+                          spreadRadius: 7
+                      )
+                    ]
                 ),
                 child: Padding(
                   padding: EdgeInsetsDirectional.fromSTEB(20, 0, 0, 0),
@@ -210,7 +250,7 @@ class _HomeContainerState extends State<HomeContainer> {
                               ' ${indexList[1].close}',
                               style: TextStyle(
                                 fontFamily: 'Lexend Deca',
-                                color:  (double.parse(indexList[3].pointChange) <= 0)? Colors.redAccent : Colors.green,
+                                color:  Colors.white,
                               ),
                             ),
                           )
@@ -251,10 +291,18 @@ class _HomeContainerState extends State<HomeContainer> {
             Padding(
               padding: EdgeInsetsDirectional.fromSTEB(0, 20, 0, 20),
               child: Container(
-                width: MediaQuery.of(context).size.width,
+                width: MediaQuery.of(context).size.width-15,
                 height: 120,
                 decoration: BoxDecoration(
-                  color: Color(0xFF212736),
+                    color: colorPicker(),
+                    borderRadius: BorderRadius.circular(25),
+                    boxShadow: [
+                      BoxShadow(
+                          color: colorPicker().withOpacity(0.7),
+                          blurRadius: 10,
+                          spreadRadius: 7
+                      )
+                    ]
                 ),
                 child: Padding(
                   padding: EdgeInsetsDirectional.fromSTEB(20, 0, 0, 0),
@@ -281,7 +329,7 @@ class _HomeContainerState extends State<HomeContainer> {
                               '${indexList[2].close}',
                               style: TextStyle(
                                 fontFamily: 'Lexend Deca',
-                                color:  (double.parse(indexList[3].pointChange) <= 0)? Colors.redAccent : Colors.green,
+                                color:  Colors.white,
                               ),
                             ),
                           )
@@ -322,10 +370,18 @@ class _HomeContainerState extends State<HomeContainer> {
             Padding(
               padding: EdgeInsetsDirectional.fromSTEB(0, 20, 0, 20),
               child: Container(
-                width: MediaQuery.of(context).size.width,
+                width: MediaQuery.of(context).size.width-15,
                 height: 120,
                 decoration: BoxDecoration(
-                  color: Color(0xFF212736),
+                    color: colorPicker(),
+                    borderRadius: BorderRadius.circular(25),
+                    boxShadow: [
+                      BoxShadow(
+                          color: colorPicker().withOpacity(0.7),
+                          blurRadius: 10,
+                          spreadRadius: 7
+                      )
+                    ]
                 ),
                 child: Padding(
                   padding: EdgeInsetsDirectional.fromSTEB(20, 0, 0, 0),
@@ -352,7 +408,7 @@ class _HomeContainerState extends State<HomeContainer> {
                               '${indexList[3].close}',
                               style: TextStyle(
                                 fontFamily: 'Lexend Deca',
-                                color:  (double.parse(indexList[3].pointChange) <= 0)? Colors.redAccent : Colors.green,
+                                color:  Colors.white,
                               ),
                             ),
                           )
