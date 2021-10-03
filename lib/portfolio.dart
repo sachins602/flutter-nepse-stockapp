@@ -31,14 +31,15 @@ class _PortfolioContainerState extends State<PortfolioContainer> {
           topRight: Radius.circular(10.0),
         ),
         child: Container(
-          color: Colors.white,
+          color: Color(0xFF1F1F21),
           height: 200,
           child: Padding(
             padding: const EdgeInsets.all(8.0),
             child: Column(
               children: [
                 TextFormField(
-                  decoration: InputDecoration(labelText: "Enter Updated total Stocks"),
+                  style: TextStyle(color: Colors.white),
+                  decoration: InputDecoration(labelText: "Enter Updated total Stocks", labelStyle: TextStyle(color: Colors.white)),
                   controller: editStockValue,
                 ),
                 SizedBox(

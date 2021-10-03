@@ -16,7 +16,7 @@ class _ChildWidgetState extends State<ChildWidget> {
   var brokerPrice;
   var dpPrice;
   var totalPrice;
-  var costPerSharePrice;
+  var sellTotalAmount;
   var capitalGainStPrice;
   var profitLossPrice;
   final buyAmountController = new TextEditingController();
@@ -35,8 +35,10 @@ class _ChildWidgetState extends State<ChildWidget> {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: <Widget>[
               TextField(
+                style: TextStyle(color: Colors.white),
                 controller: buyAmountController,
                 decoration: InputDecoration(
+
                   enabledBorder: const OutlineInputBorder(
                     borderSide: const BorderSide(color: Colors.white, width: 1.0),
                   ),
@@ -48,6 +50,7 @@ class _ChildWidgetState extends State<ChildWidget> {
                 keyboardType: TextInputType.number,
               ),
               TextField(
+                style: TextStyle(color: Colors.white),
                 controller: buyPriceController,
                 decoration: InputDecoration(
                   enabledBorder: const OutlineInputBorder(
@@ -71,11 +74,11 @@ class _ChildWidgetState extends State<ChildWidget> {
               ),
               Column(
                 children: [
-                  if(companyAmount != null && sebonPrice != null && brokerPrice != null && totalPrice != null)
+                  if(companyAmount != null && sebonPrice != null && brokerPrice != null && totalPrice != null || capitalGainStPrice != null || sellTotalAmount != null)
                     Column(
                       children: [
                         Text(
-                          "Share Amount            Rs" + companyAmount,
+                          "Share Amount            Rs" + companyAmount.toString(),
                           style: TextStyle(
                             color: Colors.white,
                             fontSize: 18,
@@ -131,6 +134,7 @@ class _ChildWidgetState extends State<ChildWidget> {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: <Widget>[
               TextField(
+                style: TextStyle(color: Colors.white),
                 controller: basePriceController,
                 decoration: InputDecoration(
                   enabledBorder: const OutlineInputBorder(
@@ -144,7 +148,8 @@ class _ChildWidgetState extends State<ChildWidget> {
                 keyboardType: TextInputType.number,
               ),
               TextField(
-                controller: buyAmountController,
+                style: TextStyle(color: Colors.white),
+                controller: buyPriceController,
                 decoration: InputDecoration(
                   enabledBorder: const OutlineInputBorder(
                     borderSide: const BorderSide(color: Colors.white, width: 1.0),
@@ -157,7 +162,8 @@ class _ChildWidgetState extends State<ChildWidget> {
                 keyboardType: TextInputType.number,
               ),
               TextField(
-                controller: buyPriceController,
+                style: TextStyle(color: Colors.white),
+                controller: buyAmountController,
                 decoration: InputDecoration(
                   enabledBorder: const OutlineInputBorder(
                     borderSide: const BorderSide(color: Colors.white, width: 1.0),
@@ -171,7 +177,7 @@ class _ChildWidgetState extends State<ChildWidget> {
               ),
               ElevatedButton(
                 onPressed: () {
-                  calculateBuy();
+                  calculateSell();
                 },
                 child: Text(
                   "Calculate",
@@ -184,7 +190,7 @@ class _ChildWidgetState extends State<ChildWidget> {
                     Column(
                       children: [
                         Text(
-                          "Share Amount            Rs" + companyAmount,
+                          "Share Amount            Rs" + companyAmount.toString(),
                           style: TextStyle(
                             color: Colors.white,
                             fontSize: 18,
@@ -212,7 +218,14 @@ class _ChildWidgetState extends State<ChildWidget> {
                           ),
                         ),
                         Text(
-                          "Total Amount               Rs" + totalPrice.toString(),
+                          "Capital Gain Tax(7.5%)       Rs" + capitalGainStPrice.toString(),
+                          style: TextStyle(
+                            color: Colors.white,
+                            fontSize: 18,
+                          ),
+                        ),
+                        Text(
+                          "Total Amount               Rs" + sellTotalAmount.toString(),
                           style: TextStyle(
                             color: Colors.white,
                             fontSize: 18,
@@ -238,25 +251,64 @@ class _ChildWidgetState extends State<ChildWidget> {
   }
 
   void calculateBuy() {
-    final shareAmount = (double.parse(buyAmountController.text) *
-            double.parse(buyPriceController.text))
+    final shareAmount = (double.parse(buyAmountController.text) * double.parse(buyPriceController.text))
         .toStringAsFixed(2);
     final sebonCommission = (double.parse(shareAmount) *
-        0.01)
+        0.001)
         .toStringAsFixed(2);
     final brokerCommission = (double.parse(shareAmount) *
-        0.37)
+        0.037)
         .toStringAsFixed(2);
     final totalAmount = (double.parse(shareAmount) + double.parse(sebonCommission) + double.parse(brokerCommission) + 25
     ).toStringAsFixed(2);
+    
+    
+    
+    // final capitalGainTax = ((double.parse(shareAmount) - (double.parse(basePriceController.text) * double.parse(buyAmountController.text))) * 0.075
+    // ).toStringAsFixed(2);
+    // final sellTotal = (double.parse(shareAmount) - double.parse(sebonCommission) - double.parse(brokerCommission) - 25 - double.parse(capitalGainTax)
+    //    ).toStringAsFixed(2);
+
     setState(() {
       companyAmount = '\.    $shareAmount';
       sebonPrice = '\.    $sebonCommission';
       brokerPrice = '\.   $brokerCommission';
       totalPrice = '\.    $totalAmount';
+      // capitalGainStPrice = '\. $capitalGainTax';
+      // sellTotalAmount = '\.$sellTotal';
 
     });
   }
+  void calculateSell() {
+    final sellshareAmount = (double.parse(buyAmountController.text) * double.parse(buyPriceController.text))
+        .toStringAsFixed(2);
+    final sellsebonCommission = (double.parse(sellshareAmount) *
+        0.001)
+        .toStringAsFixed(2);
+    final sellbrokerCommission = (double.parse(sellshareAmount) *
+        0.037)
+        .toStringAsFixed(2);
+    final selltotalAmount = (double.parse(sellshareAmount) + double.parse(sellsebonCommission) + double.parse(sellbrokerCommission) + 25
+    ).toStringAsFixed(2);
+
+
+
+    final capitalGainTax = ((double.parse(sellshareAmount) - (double.parse(basePriceController.text) * double.parse(buyAmountController.text))) * 0.075
+    ).toStringAsFixed(2);
+    final sellTotal = (double.parse(sellshareAmount) - double.parse(sellsebonCommission) - double.parse(sellbrokerCommission) - 25 - double.parse(capitalGainTax)
+    ).toStringAsFixed(2);
+
+    setState(() {
+      companyAmount = '\.    $sellshareAmount';
+      sebonPrice = '\.    $sellsebonCommission';
+      brokerPrice = '\.   $sellbrokerCommission';
+      totalPrice = '\.    $selltotalAmount';
+      capitalGainStPrice = '\. $capitalGainTax';
+      sellTotalAmount = '\.$sellTotal';
+
+    });
+  }
+
 }
 
 enum AvailableNumber { First, Second }

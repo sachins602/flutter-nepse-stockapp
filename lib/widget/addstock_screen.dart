@@ -33,8 +33,9 @@ class _AddStockScreenState extends State<AddStockScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Theme.of(context).primaryColor,
+      backgroundColor: Color(0xFF1F1F21),
       appBar: AppBar(
+        backgroundColor: Color(0xFF1D1D31),
         centerTitle: true,
         title: Text('Stock App'),
       ),

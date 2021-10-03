@@ -9,8 +9,6 @@ import 'package:jsonproject/search_company_details.dart';
 
 import 'parsing_json.dart';
 import 'package:flutter/material.dart';
-//import 'package:http_parser/http_parser.dart';
-import 'package:jsonproject/search_company_details.dart';
 
 class CharacterList extends StatefulWidget {
   final int index;
@@ -23,7 +21,7 @@ class CharacterList extends StatefulWidget {
 }
 
 class _CharacterListState extends State<CharacterList> {
-  TextEditingController? _textEditingController = TextEditingController();
+  // TextEditingController? _textEditingController = TextEditingController();
 
 
  Iterable<LiveNepseData> characterListOnSearch =new List<LiveNepseData>.empty(growable: true);

@@ -85,13 +85,27 @@ class _TopGainersLosersContainerState extends State<TopGainersLosersContainer> {
                         ),
                         child:
                             ListTile(
-                              title: Text(
-                                characterList[index].symbol,
-                                style: TextStyle(color: Colors.white),
+                              horizontalTitleGap: 25,
+                              leading: Padding(
+                                padding: const EdgeInsets.only(top: 15),
+                                child: Text(
+                                  "${characterList[index].change}%",
+                                  style: TextStyle(color: Colors.white, fontSize: 16),
+                                ),
                               ),
-                              subtitle: Text(
-                                "Rs. ${characterList[index].change}",
-                                style: TextStyle(color: Colors.white),
+                              title: Padding(
+                                padding: const EdgeInsets.all(6.0),
+                                child: Text(
+                                  characterList[index].symbol,
+                                  style: TextStyle(color: Colors.white, fontSize: 19),
+                                ),
+                              ),
+                              subtitle: Padding(
+                                padding: const EdgeInsets.all(2.0),
+                                child: Text(
+                                  "Rs. ${characterList[index].pointChange}",
+                                  style: TextStyle(color: Colors.white, fontSize: 15),
+                                ),
                               ),
                               contentPadding: EdgeInsets.only(left: 50, right: 50),
                         ),
@@ -121,13 +135,27 @@ class _TopGainersLosersContainerState extends State<TopGainersLosersContainer> {
                           ),
                         ),
                         child: ListTile(
-                              title: Text(
-                                characterList[index].symbol,
-                                style: TextStyle(color: Colors.white),
+                          horizontalTitleGap: 25,
+                          leading: Padding(
+                            padding: const EdgeInsets.only(top: 15.0),
+                            child: Text(
+                              "${characterList[index].change}%",
+                              style: TextStyle(color: Colors.white,fontSize: 16),
+                            ),
+                          ),
+                              title: Padding(
+                                padding: const EdgeInsets.all(6.0),
+                                child: Text(
+                                  characterList[index].symbol,
+                                  style: TextStyle(color: Colors.white, fontSize: 19),
+                                ),
                               ),
-                              subtitle: Text(
-                                "Rs. ${characterList[index].change}",
-                                style: TextStyle(color: Colors.white),
+                              subtitle: Padding(
+                                padding: const EdgeInsets.all(2),
+                                child: Text(
+                                  "Rs. ${characterList[index].pointChange}",
+                                  style: TextStyle(color: Colors.white, fontSize: 15),
+                                ),
                               ),
                               contentPadding: EdgeInsets.only(left: 50, right: 50),
                             ),

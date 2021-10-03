@@ -13,7 +13,9 @@ class DrawerWidget extends StatefulWidget {
 }
 
 class _DrawerWidgetState extends State<DrawerWidget> {
-final DataController controller = Get.find();
+  late var _firstname;
+  late var _email;
+  final DataController controller = Get.find();
   final pages = [
     Center(
       child: Text('Index'),
@@ -45,11 +47,17 @@ final DataController controller = Get.find();
     return () {
       setState(() {
         indexClicked = index;
+
       });
       Navigator.pop(context);
     };
   }
-
+@override
+  void initState() {
+  _firstname = controller.userProfileData['firstName'];
+  _email = controller.userProfileData['email'];
+    super.initState();
+  }
   @override
   Widget build(BuildContext context) {
     return Drawer(
@@ -76,7 +84,8 @@ final DataController controller = Get.find();
                       Container(
                          child:
                          Text(
-                          '${controller.userProfileData['firstName']}',
+                          _firstname,
+                           // '${controller.userProfileData['firstName']}',
                           style: TextStyle(
                             fontSize: 18,
                             color: Colors.white,
@@ -88,7 +97,8 @@ final DataController controller = Get.find();
                         height: 5,
                       ),
                       Text(
-                        '${controller.userProfileData['email']}',
+                        _email,
+                        // '${controller.userProfileData['email']}',
                         style: TextStyle(
                           fontSize: 13,
                           color: Colors.white,
@@ -263,6 +273,7 @@ class AppDrawerTile extends StatelessWidget {
               break;
             case 7:
               {
+                Navigator.pop(context);
                 logout(context);
               }
               break;

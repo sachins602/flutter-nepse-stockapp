@@ -6,12 +6,10 @@ import 'package:jsonproject/controller/portfolio_data_controller.dart';
 import 'package:jsonproject/home.dart';
 import 'package:get/get.dart';
 import 'dart:async';
-import 'package:http/http.dart' as http;
 
 import 'package:jsonproject/json_api.dart';
 import 'package:jsonproject/marketdata.dart';
 import 'package:jsonproject/portfolio.dart';
-import 'package:jsonproject/search_company_details.dart';
 import 'package:jsonproject/topgainers_losers.dart';
 import 'package:jsonproject/ui/calculator_screen.dart';
 import 'package:jsonproject/ui/company_extradetails_page.dart';
