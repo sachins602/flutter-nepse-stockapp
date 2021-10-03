@@ -101,7 +101,7 @@ class _ScaffoldWidgetForHomeState extends State<ScaffoldWidgetForHome> {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Color(0xFF262626),
-        title: Text("Trading Point"),
+        title: Text("Index"),
       ),
       drawer: DrawerWidget(),
       body: HomeContainer(),
@@ -183,7 +183,7 @@ class _ScaffoldWidgetForPortfolioState
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Color(0xFF262626),
-        title: Text("Trading Point"),
+        title: Text("Portfolio"),
       ),
       drawer: DrawerWidget(),
       body: PortfolioContainer(),
@@ -266,7 +266,7 @@ class _ScaffoldWidgetForSearchState extends State<ScaffoldWidgetForSearch> {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Color(0xFF262626),
-        title: Text("Stock App"),
+        title: Text("Live Market"),
       ),
       drawer: DrawerWidget(),
       body: CharacterList(
@@ -350,7 +350,7 @@ class _ScaffoldWidgetForMarketDataState
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Color(0xFF262626),
-        title: Text("Portfolio"),
+        title: Text("Market Data"),
       ),
       drawer: DrawerWidget(),
       body: MarketDataContainer(),
@@ -433,7 +433,7 @@ class _ScaffoldWidgetForTopGainersLosersState
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Color(0xFF262626),
-        title: Text("Stock App"),
+        title: Text("Top Gainers/Losers"),
       ),
       drawer: DrawerWidget(),
       body: TopGainersLosersContainer(),
@@ -462,7 +462,7 @@ class _ScaffoldWidgetForIndividualCompanyDetailState
       backgroundColor: Color(0xFF101010),
       appBar: AppBar(
         backgroundColor: Color(0xFF262626),
-        title: Text("Stock App"),
+        title: Text("Company Details"),
       ),
       drawer: DrawerWidget(),
       body: Column(

@@ -30,7 +30,7 @@ class _CalculatorScreenState extends State<CalculatorScreen> {
       appBar: AppBar(
         backgroundColor: Colors.blueGrey,
 
-        title: Text('Stock app'),
+        title: Text('Calculator'),
       ),
       backgroundColor: Colors.blueGrey.shade900,
       bottomNavigationBar: BottomNavigationBar(

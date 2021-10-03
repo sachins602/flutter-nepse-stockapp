@@ -60,7 +60,7 @@ class _SearchResultsContainerState extends State<SearchResultsContainer> {
         return Scaffold(
           appBar: AppBar(
             backgroundColor: Color(0xFF181D2A),
-            title: Text("Stock App"),
+            title: Text("Company Details"),
           ),
 
           body: individualCompanyData == null? Container() :
@@ -100,7 +100,7 @@ class _SearchResultsContainerState extends State<SearchResultsContainer> {
                           textAlign: TextAlign.start,
                           style: TextStyle(
                             fontFamily: 'Lexend Deca',
-                            color: Color(0xFF49DB43),
+                            color: individualCompanyData['% Change'][0] == '-'? Colors.red: Colors.green,
                           ),
                         ),
                       ),
@@ -129,7 +129,7 @@ class _SearchResultsContainerState extends State<SearchResultsContainer> {
                           textAlign: TextAlign.start,
                           style: TextStyle(
                             fontFamily: 'Lexend Deca',
-                            color: Colors.white,
+                            color: individualCompanyData['% Change'][0] == '-'? Colors.red: Colors.green,
                           ),
                         ),
                       ),
@@ -274,7 +274,7 @@ class _SearchResultsContainerState extends State<SearchResultsContainer> {
                           textAlign: TextAlign.start,
                           style: TextStyle(
                             fontFamily: 'Lexend Deca',
-                            color: Color(0xFFBF5A5A),
+                            color: individualCompanyData['% Change'][0] == ''? Colors.red: Colors.green,
                           ),
                         ),
                       ),

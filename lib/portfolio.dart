@@ -1,11 +1,15 @@
+import 'dart:convert';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_typeahead/flutter_typeahead.dart';
+import 'package:jsonproject/json_api_entry.dart';
 import 'package:jsonproject/main.dart';
 import 'package:jsonproject/models/porfolio_model.dart';
 import 'package:jsonproject/models/user_model.dart';
+import 'package:jsonproject/parsing_json.dart';
 import 'package:jsonproject/widget/addstock_screen.dart';
 import 'package:get/get.dart';
 import 'controller/portfolio_data_controller.dart';
@@ -21,6 +25,7 @@ class _PortfolioContainerState extends State<PortfolioContainer> {
   final DataController controller = Get.find();
 
   final editStockValue = TextEditingController();
+  List<LiveNepseData> characterList = new List<LiveNepseData>.empty(growable: true);
 
   editProduct(companyId, totalStock) {
     editStockValue.text = totalStock.toString();
@@ -39,7 +44,9 @@ class _PortfolioContainerState extends State<PortfolioContainer> {
               children: [
                 TextFormField(
                   style: TextStyle(color: Colors.white),
-                  decoration: InputDecoration(labelText: "Enter Updated total Stocks", labelStyle: TextStyle(color: Colors.white)),
+                  decoration: InputDecoration(
+                      labelText: "Enter Updated total Stocks",
+                      labelStyle: TextStyle(color: Colors.white)),
                   controller: editStockValue,
                 ),
                 SizedBox(
@@ -60,6 +67,26 @@ class _PortfolioContainerState extends State<PortfolioContainer> {
     );
   }
 
+  void getLiveNepsedatafromApi() async {
+    LiveNepseApi.getNepseData().then((response) {
+      if(this.mounted) {
+        setState(() {
+          Iterable list = json.decode(response.body);
+          characterList = list.map((model) => LiveNepseData.fromJson(model)).toList();
+        });
+      }
+    });
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    getLiveNepsedatafromApi();
+
+  }
+  compareSymbol(){
+
+  }
   //
   // final List<PortfolioModel> portfolioModel = [
   //   //PortfolioModel(companySymbol: 'adbl', totalStock: 100, stockType: 'ipo')
@@ -151,7 +178,10 @@ class _PortfolioContainerState extends State<PortfolioContainer> {
       body: GetBuilder<DataController>(
         builder: (controller) => controller.loginUserData.isEmpty
             ? Center(
-                child: Text(' NO DATA FOUND PLEASE ADD DATA !!'),
+                child: Text(
+                  ' NO DATA FOUND LOG IN OR ADD DATA !!',
+                  style: TextStyle(color: Colors.white),
+                ),
               )
             : ListView.builder(
                 itemCount: controller.loginUserData.length,
@@ -166,21 +196,25 @@ class _PortfolioContainerState extends State<PortfolioContainer> {
                             children: [
                               Text(
                                 "Company Symbol: ${controller.loginUserData[index].companySymbol}",
-                                style: TextStyle(fontWeight: FontWeight.bold, fontSize: 19),
+                                style: TextStyle(
+                                    fontWeight: FontWeight.bold, fontSize: 19),
                               ),
                               SizedBox(
                                 height: 20,
                               ),
                               Row(
-                                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceEvenly,
                                 children: [
                                   Text(
                                     'Total Stock: ${controller.loginUserData[index].totalStock}',
-                                    style: TextStyle(fontWeight: FontWeight.bold),
+                                    style:
+                                        TextStyle(fontWeight: FontWeight.bold),
                                   ),
                                   Text(
                                     'Stock Type: ${controller.loginUserData[index].stockType}',
-                                    style: TextStyle(fontWeight: FontWeight.bold),
+                                    style:
+                                        TextStyle(fontWeight: FontWeight.bold),
                                   ),
                                 ],
                               ),
@@ -194,13 +228,17 @@ class _PortfolioContainerState extends State<PortfolioContainer> {
                             children: [
                               ElevatedButton(
                                 onPressed: () {
-                                  editProduct(controller.loginUserData[index].companyId,controller.loginUserData[index].totalStock);
+                                  editProduct(
+                                      controller.loginUserData[index].companyId,
+                                      controller
+                                          .loginUserData[index].totalStock);
                                 },
                                 child: Text('Edit'),
                               ),
                               ElevatedButton(
                                 onPressed: () {
-                                  controller.deleteProduct(controller.loginUserData[index].companyId!);
+                                  controller.deleteProduct(controller
+                                      .loginUserData[index].companyId!);
                                 },
                                 child: Text('Delete'),
                               ),
