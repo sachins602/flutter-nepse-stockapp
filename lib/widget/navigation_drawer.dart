@@ -13,7 +13,7 @@ class DrawerWidget extends StatefulWidget {
 }
 
 class _DrawerWidgetState extends State<DrawerWidget> {
-  late var _firstname;
+  late var _firstName;
   late var _email;
   final DataController controller = Get.find();
   final pages = [
@@ -39,8 +39,11 @@ class _DrawerWidgetState extends State<DrawerWidget> {
       child: Flexible(child: Text('Calculator')),
     ),
     Center(
-      child: Text('Logout'),
+      child: Flexible(child: Text('Chart')),
     ),
+    // Center(
+    //   child: Text('Logout'),
+    // ),
   ];
 
   Function updateState(int index) {
@@ -54,7 +57,7 @@ class _DrawerWidgetState extends State<DrawerWidget> {
   }
 @override
   void initState() {
-  _firstname = controller.userProfileData['firstName'];
+  _firstName = controller.userProfileData['firstName'];
   _email = controller.userProfileData['email'];
     super.initState();
   }
@@ -79,12 +82,12 @@ class _DrawerWidgetState extends State<DrawerWidget> {
                         height: 30,
                       ),
                       const SizedBox(
-                        height: 10,
+                        height: 30,
                       ),
                       Container(
                          child:
                          Text(
-                          _firstname,
+                          _firstName,
                            // '${controller.userProfileData['firstName']}',
                           style: TextStyle(
                             fontSize: 18,
@@ -147,13 +150,14 @@ class _DrawerWidgetState extends State<DrawerWidget> {
                         index: 7,
                         onTap: updateState(7),
                       ),
+                      // AppDrawerTile(
+                      //   index: 8,
+                      //   onTap: updateState(8),
+                      // ),
                       const SizedBox(
                         height: 30,
                       ),
                       const AppDrawerDivider(),
-                      const SizedBox(
-                        height: 10,
-                      ),
                       Center(
                         child: Text(
                           'Stock Market App',
@@ -272,6 +276,12 @@ class AppDrawerTile extends StatelessWidget {
               }
               break;
             case 7:
+              {
+                Navigator.pop(context);
+                Navigator.pushNamed(context, '/eighthScreen');
+              }
+              break;
+            case 8:
               {
                 Navigator.pop(context);
                 logout(context);

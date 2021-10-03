@@ -13,7 +13,8 @@ class Defaults {
     'Top Gainers/Losers',
     'Search',
     'Calculator',
-    'Logout',
+    'Chart'
+    //'Logout',
   ];
 
   static final drawerItemIcon = [
@@ -24,6 +25,7 @@ class Defaults {
     Icons.airplay,
     Icons.search,
     Icons.calculate,
-    Icons.logout,
+    Icons.bar_chart,
+    //Icons.logout,
   ];
 }

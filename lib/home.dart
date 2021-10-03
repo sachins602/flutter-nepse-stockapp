@@ -1,5 +1,9 @@
 import 'dart:convert';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/cupertino.dart';
+import 'package:get/get.dart';
 import 'package:jsonproject/parsing_json.dart';
+import 'package:jsonproject/ui/login_screen.dart';
 
 import 'parsing_json.dart';
 import 'package:http/http.dart' as http;
@@ -79,7 +83,7 @@ class _HomeContainerState extends State<HomeContainer> {
           mainAxisSize: MainAxisSize.max,
           children: [
             Padding(
-              padding: EdgeInsetsDirectional.fromSTEB(0, 20, 0, 20),
+              padding: EdgeInsetsDirectional.fromSTEB(0, 15, 0, 15),
               child: Container(
                 width: MediaQuery.of(context).size.width,
                 height: 120,
@@ -177,7 +181,7 @@ class _HomeContainerState extends State<HomeContainer> {
               ),
             ),
             Padding(
-              padding: EdgeInsetsDirectional.fromSTEB(0, 20, 0, 20),
+              padding: EdgeInsetsDirectional.fromSTEB(0, 15, 0, 15),
               child: Container(
                 width: MediaQuery.of(context).size.width,
                 height: 120,
@@ -248,7 +252,7 @@ class _HomeContainerState extends State<HomeContainer> {
               ),
             ),
             Padding(
-              padding: EdgeInsetsDirectional.fromSTEB(0, 20, 0, 20),
+              padding: EdgeInsetsDirectional.fromSTEB(0, 15, 0, 15),
               child: Container(
                 width: MediaQuery.of(context).size.width,
                 height: 120,
@@ -319,7 +323,7 @@ class _HomeContainerState extends State<HomeContainer> {
               ),
             ),
             Padding(
-              padding: EdgeInsetsDirectional.fromSTEB(0, 20, 0, 20),
+              padding: EdgeInsetsDirectional.fromSTEB(0, 15, 0, 15),
               child: Container(
                 width: MediaQuery.of(context).size.width,
                 height: 120,
@@ -388,13 +392,38 @@ class _HomeContainerState extends State<HomeContainer> {
                   ),
                 ),
               ),
-            )
+            ),
+            Padding(
+              padding: const EdgeInsets.only(left: 230.0),
+              child: FloatingActionButton(
+                splashColor: Colors.blue,
+                focusElevation: 10,
+                highlightElevation: 10,
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(20),
+                ),
+                elevation: 10,
+
+                backgroundColor: Colors.redAccent,
+                  child: Text("Logout", style: TextStyle(color: Colors.white),),
+                  onPressed: (){
+                  logout(context);
+
+
+              }),
+            ),
           ],
         ),
       );
     }
   }
+  Future<void> logout(BuildContext context) async {
+    await FirebaseAuth.instance.signOut();
+    Get.to(LoginScreen());
+  }
+
 }
+
 
 
 
