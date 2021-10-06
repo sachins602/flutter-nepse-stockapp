@@ -1,15 +1,11 @@
-import 'dart:convert';
-
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_typeahead/flutter_typeahead.dart';
-import 'package:jsonproject/json_api_entry.dart';
 import 'package:jsonproject/main.dart';
 import 'package:jsonproject/models/porfolio_model.dart';
 import 'package:jsonproject/models/user_model.dart';
-import 'package:jsonproject/parsing_json.dart';
 import 'package:jsonproject/widget/addstock_screen.dart';
 import 'package:get/get.dart';
 import 'controller/portfolio_data_controller.dart';
@@ -25,7 +21,6 @@ class _PortfolioContainerState extends State<PortfolioContainer> {
   final DataController controller = Get.find();
 
   final editStockValue = TextEditingController();
-  List<LiveNepseData> characterList = new List<LiveNepseData>.empty(growable: true);
 
   editProduct(companyId, totalStock) {
     editStockValue.text = totalStock.toString();
@@ -36,17 +31,14 @@ class _PortfolioContainerState extends State<PortfolioContainer> {
           topRight: Radius.circular(10.0),
         ),
         child: Container(
-          color: Color(0xFF1F1F21),
+          color: Colors.white,
           height: 200,
           child: Padding(
             padding: const EdgeInsets.all(8.0),
             child: Column(
               children: [
                 TextFormField(
-                  style: TextStyle(color: Colors.white),
-                  decoration: InputDecoration(
-                      labelText: "Enter Updated total Stocks",
-                      labelStyle: TextStyle(color: Colors.white)),
+                  decoration: InputDecoration(labelText: "Enter Updated total Stocks"),
                   controller: editStockValue,
                 ),
                 SizedBox(
@@ -67,26 +59,6 @@ class _PortfolioContainerState extends State<PortfolioContainer> {
     );
   }
 
-  void getLiveNepsedatafromApi() async {
-    LiveNepseApi.getNepseData().then((response) {
-      if(this.mounted) {
-        setState(() {
-          Iterable list = json.decode(response.body);
-          characterList = list.map((model) => LiveNepseData.fromJson(model)).toList();
-        });
-      }
-    });
-  }
-
-  @override
-  void initState() {
-    super.initState();
-    getLiveNepsedatafromApi();
-
-  }
-  compareSymbol(){
-
-  }
   //
   // final List<PortfolioModel> portfolioModel = [
   //   //PortfolioModel(companySymbol: 'adbl', totalStock: 100, stockType: 'ipo')
@@ -161,9 +133,9 @@ class _PortfolioContainerState extends State<PortfolioContainer> {
     });
 
     return Scaffold(
-      backgroundColor: Color(0xFF181D2A),
+      backgroundColor: Colors.blueGrey,
       appBar: AppBar(
-        backgroundColor: Color(0xFF1F1F21),
+        backgroundColor: Colors.blueGrey,
         title: Text(''),
         actions: [
           IconButton(
@@ -178,78 +150,67 @@ class _PortfolioContainerState extends State<PortfolioContainer> {
       body: GetBuilder<DataController>(
         builder: (controller) => controller.loginUserData.isEmpty
             ? Center(
-                child: Text(
-                  ' NO DATA FOUND LOG IN OR ADD DATA !!',
-                  style: TextStyle(color: Colors.white),
-                ),
-              )
+          child: Text('Please Login or Add Data !!'),
+        )
             : ListView.builder(
-                itemCount: controller.loginUserData.length,
-                itemBuilder: (context, index) {
-                  return Card(
+          itemCount: controller.loginUserData.length,
+          itemBuilder: (context, index) {
+            return Card(
+              child: Column(
+                children: [
+                  Padding(
+                    padding: const EdgeInsets.all(8.0),
                     child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        Padding(
-                          padding: const EdgeInsets.all(8.0),
-                          child: Column(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              Text(
-                                "Company Symbol: ${controller.loginUserData[index].companySymbol}",
-                                style: TextStyle(
-                                    fontWeight: FontWeight.bold, fontSize: 19),
-                              ),
-                              SizedBox(
-                                height: 20,
-                              ),
-                              Row(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceEvenly,
-                                children: [
-                                  Text(
-                                    'Total Stock: ${controller.loginUserData[index].totalStock}',
-                                    style:
-                                        TextStyle(fontWeight: FontWeight.bold),
-                                  ),
-                                  // Text(
-                                  //   'Stock Type: ${controller.loginUserData[index].stockType}',
-                                  //   style:
-                                  //       TextStyle(fontWeight: FontWeight.bold),
-                                  // ),
-                                ],
-                              ),
-                            ],
-                          ),
+                        Text(
+                          "Company Symbol: ${controller.loginUserData[index].companySymbol}",
+                          style: TextStyle(fontWeight: FontWeight.bold, fontSize: 19),
                         ),
-                        Padding(
-                          padding: const EdgeInsets.all(8.0),
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              ElevatedButton(
-                                onPressed: () {
-                                  editProduct(
-                                      controller.loginUserData[index].companyId,
-                                      controller
-                                          .loginUserData[index].totalStock);
-                                },
-                                child: Text('Edit'),
-                              ),
-                              ElevatedButton(
-                                onPressed: () {
-                                  controller.deleteProduct(controller
-                                      .loginUserData[index].companyId!);
-                                },
-                                child: Text('Delete'),
-                              ),
-                            ],
-                          ),
+                        SizedBox(
+                          height: 20,
+                        ),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                          children: [
+                            Text(
+                              'Total Stock: ${controller.loginUserData[index].totalStock}',
+                              style: TextStyle(fontWeight: FontWeight.bold),
+                            ),
+                            // Text(
+                            //   'Stock Type: ${controller.loginUserData[index].stockType}',
+                            //   style: TextStyle(fontWeight: FontWeight.bold),
+                            // ),
+                          ],
                         ),
                       ],
                     ),
-                  );
-                },
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        ElevatedButton(
+                          onPressed: () {
+                            editProduct(controller.loginUserData[index].companyId,controller.loginUserData[index].totalStock);
+                          },
+                          child: Text('Edit'),
+                        ),
+                        ElevatedButton(
+                          onPressed: () {
+                            controller.deleteProduct(controller.loginUserData[index].companyId!);
+                          },
+                          child: Text('Delete'),
+                        ),
+                      ],
+                    ),
+                  ),
+                ],
               ),
+            );
+          },
+        ),
       ),
     );
   }
