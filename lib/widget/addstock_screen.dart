@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:jsonproject/controller/common_dailog.dart';
 import 'package:jsonproject/controller/portfolio_data_controller.dart';
 import 'package:get/get.dart';
 
@@ -56,8 +57,8 @@ class _AddStockScreenState extends State<AddStockScreen> {
                     labelText: 'Stock Symbol',
                   ),
                   validator: (value) {
-                    if (value == null || value.isEmpty) {
-                      return 'Stock Symbol Required';
+                    if (value == null || value.isEmpty ) {
+                      return 'Stock Amount Required';
                     }
                     return null;
                   },
@@ -78,19 +79,19 @@ class _AddStockScreenState extends State<AddStockScreen> {
                     portfolioData['stock_amount'] = value!;
                   },
                 ),
-                TextFormField(
-                  keyboardType: TextInputType.text,
-                  decoration: InputDecoration(labelText: 'IPO/SEC'),
-                  validator: (value) {
-                    if (value == null || value.isEmpty) {
-                      return 'Stock Type Required';
-                    }
-                    return null;
-                  },
-                  onSaved: (value) {
-                    portfolioData['stock_type'] = value!;
-                  },
-                ),
+                // TextFormField(
+                //   keyboardType: TextInputType.text,
+                //   decoration: InputDecoration(labelText: 'IPO/SEC'),
+                //   validator: (value) {
+                //     if (value == null || value.isEmpty) {
+                //       return 'Stock Type Required';
+                //     }
+                //     return null;
+                //   },
+                //   onSaved: (value) {
+                //     portfolioData['stock_type'] = value!;
+                //   },
+                // ),
                 SizedBox(
                   height: 30,
                 ),

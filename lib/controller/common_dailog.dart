@@ -75,6 +75,41 @@ class CommonDialog {
       barrierDismissible: false,
     );
   }
-
+  static showNumberErrorDialog(
+      {String title = "Oops Error",
+        String description = "Input Numbers"}) {
+    Get.dialog(
+      Dialog(
+        shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.all(Radius.circular(10.0))),
+        child: Padding(
+          padding: const EdgeInsets.all(16.0),
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              Text(
+                title,
+                style: Get.textTheme.headline6,
+              ),
+              SizedBox(
+                height: 10,
+              ),
+              Text(
+                description,
+                style: TextStyle(fontSize: 16),
+              ),
+              ElevatedButton(
+                onPressed: () {
+                  if (Get.isDialogOpen!) Get.back();
+                },
+                child: Text("Okay"),
+              ),
+            ],
+          ),
+        ),
+      ),
+      barrierDismissible: false,
+    );
+  }
 
 }

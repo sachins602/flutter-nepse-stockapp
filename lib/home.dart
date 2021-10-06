@@ -393,33 +393,10 @@ class _HomeContainerState extends State<HomeContainer> {
                 ),
               ),
             ),
-            Padding(
-              padding: const EdgeInsets.only(left: 230.0),
-              child: FloatingActionButton(
-                splashColor: Colors.blue,
-                focusElevation: 10,
-                highlightElevation: 10,
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(20),
-                ),
-                elevation: 10,
-
-                backgroundColor: Colors.redAccent,
-                  child: Text("Logout", style: TextStyle(color: Colors.white),),
-                  onPressed: (){
-                  logout(context);
-
-
-              }),
-            ),
           ],
         ),
       );
     }
-  }
-  Future<void> logout(BuildContext context) async {
-    await FirebaseAuth.instance.signOut();
-    Get.to(LoginScreen());
   }
 
 }

@@ -44,7 +44,7 @@ class DataController extends GetxController{
       var response = await firebaseInstance.collection('portfoliolist').add({
         'stock_symbol': stockdata['stock_symbol'],
         'stock_amount': stockdata['stock_amount'],
-        'stock_type': stockdata['stock_type'],
+       // 'stock_type': stockdata['stock_type'],
         'uid': currentUser!.uid,
       });
       print("Firebase response1111 $response");
@@ -78,7 +78,8 @@ class DataController extends GetxController{
                   uid : result.data()['uid'],
                   companySymbol : result.data()['stock_symbol'],
                   totalStock : result.data()['stock_amount'],
-                  stockType : result.data()['stock_type'], ),
+                //  stockType : result.data()['stock_type'],
+              ),
             );
           },
         );

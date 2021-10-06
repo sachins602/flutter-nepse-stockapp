@@ -16,7 +16,7 @@ class SearchResultsContainer extends StatefulWidget {
 
 class _SearchResultsContainerState extends State<SearchResultsContainer> {
 
-  Map individualCompanyData = {};
+  late Map individualCompanyData = {};
 // var individualCompanyData;
   //
   // List<IndividualCompanyData> individualCompanyData = new List<IndividualCompanyData>.empty(growable: true);
@@ -63,7 +63,7 @@ class _SearchResultsContainerState extends State<SearchResultsContainer> {
             title: Text("Company Details"),
           ),
 
-          body: individualCompanyData == null? Container() :
+          body: individualCompanyData.isEmpty? Container() :
           Padding(
             padding: EdgeInsetsDirectional.fromSTEB(0, 0, 0, 0),
             child: Container(

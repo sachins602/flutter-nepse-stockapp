@@ -211,11 +211,11 @@ class _PortfolioContainerState extends State<PortfolioContainer> {
                                     style:
                                         TextStyle(fontWeight: FontWeight.bold),
                                   ),
-                                  Text(
-                                    'Stock Type: ${controller.loginUserData[index].stockType}',
-                                    style:
-                                        TextStyle(fontWeight: FontWeight.bold),
-                                  ),
+                                  // Text(
+                                  //   'Stock Type: ${controller.loginUserData[index].stockType}',
+                                  //   style:
+                                  //       TextStyle(fontWeight: FontWeight.bold),
+                                  // ),
                                 ],
                               ),
                             ],

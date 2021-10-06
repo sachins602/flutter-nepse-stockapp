@@ -1,5 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_phoenix/flutter_phoenix.dart';
 import 'package:jsonproject/controller/portfolio_data_controller.dart';
 import 'package:jsonproject/models/navigation_drawer_model.dart';
 import 'package:jsonproject/main.dart';
@@ -27,7 +28,7 @@ class _DrawerWidgetState extends State<DrawerWidget> {
       child: Text('Live Market'),
     ),
     Center(
-      child: Text('MarketData'),
+      child: Text('Todays Price'),
     ),
     Center(
       child: Flexible(child: Text('Top Gainers/Losers')),
@@ -108,6 +109,10 @@ class _DrawerWidgetState extends State<DrawerWidget> {
                           fontWeight: FontWeight.w400,
                         ),
                       ),
+                      ElevatedButton(onPressed: (){
+                            Navigator.pop(context);
+                            logout(context);
+                      }, child: Text("Login/Loutgout")),
                     ],
                   ),
                 ),
@@ -193,6 +198,12 @@ class _DrawerWidgetState extends State<DrawerWidget> {
             ],
           ),
         );
+  }
+  Future<void> logout(BuildContext context) async {
+    await FirebaseAuth.instance.signOut();
+    Phoenix.rebirth(context);
+    Get.offAll(() => LoginScreen());
+
   }
 }
 
@@ -281,12 +292,12 @@ class AppDrawerTile extends StatelessWidget {
                 Navigator.pushNamed(context, '/eighthScreen');
               }
               break;
-            case 8:
-              {
-                Navigator.pop(context);
-                logout(context);
-              }
-              break;
+            // case 8:
+            //   {
+            //     Navigator.pop(context);
+            //     logout(context);
+            //   }
+            //   break;
           }
         },
         selected: indexClicked == index,
@@ -311,10 +322,7 @@ class AppDrawerTile extends StatelessWidget {
       ),
     );
   }
-  Future<void> logout(BuildContext context) async {
-    await FirebaseAuth.instance.signOut();
-    Get.to(LoginScreen());
-  }
+
 
 }
 

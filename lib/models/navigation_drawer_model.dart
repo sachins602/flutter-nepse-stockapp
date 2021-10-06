@@ -9,7 +9,7 @@ class Defaults {
     'Index',
     'Portfolio',
     'Live Market',
-    'Market Data',
+    'Todays Price',
     'Top Gainers/Losers',
     'Search',
     'Calculator',

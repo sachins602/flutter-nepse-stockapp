@@ -2,6 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_phoenix/flutter_phoenix.dart';
 import 'package:jsonproject/controller/portfolio_data_controller.dart';
 import 'package:jsonproject/home.dart';
 import 'package:get/get.dart';
@@ -21,7 +22,7 @@ import 'package:jsonproject/widget/navigation_drawer.dart';
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
-  runApp(LoginPageEntryPoint());
+  runApp(Phoenix(child: LoginPageEntryPoint()));
 }
 
 var indexClicked = 0;
